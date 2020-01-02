@@ -40,7 +40,7 @@ export default class {{name|title}}Service {
             const {...param} = body;
             {{name|title}}
                 .findById(id)
-                .populate({path: 'author'})// {path: 'author', select: 'name'}
+                .populate({path: 'creator'})// {path: 'creator', select: 'name'}
                 .then((doc: {{name|title}}ExtraDoc) => {
                     resolve(doc);
                 })
