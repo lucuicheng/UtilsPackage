@@ -9,7 +9,7 @@ unprotectedRouter.get('/api/list/{{ name }}', async (ctx: BaseContext, next) => 
  * {{alias}}详情
  */
 unprotectedRouter.get('/api/{{ name }}/:id', async (ctx: BaseContext, next) => {
-    const body = await {{ name }}Service.getSingle(ctx.params.id, ctx.request.body);
+    const body = await {{ name }}Service.getSingle(ctx.params.id, ctx.request.query);
     ctx.body = {code: 200, body};
 });
 
