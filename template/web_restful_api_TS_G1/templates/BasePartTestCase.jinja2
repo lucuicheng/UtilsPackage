@@ -1,0 +1,56 @@
+describe('user-service-{{ name }}',  () => {
+
+    it('用户{{alias}}', (done) => {
+        request(domain)
+            .post('/api/user/{{ name }}')
+            .set('Content-Type', 'application/json')
+            .send({
+                content: 'dsdsdsfsdfjdksf',
+                creator: '5de1f317617f60434ced31cb',
+                source: 'project',
+                target: '5e0ae62574ecdd1edd2a78b2',
+            })
+            .expect(200)
+            .end((err, res) => {
+                console.info(res.body);
+                done();
+            });
+    });
+
+    it('用户查询{{alias}}', (done) => {
+        request(domain)
+            .get(url('/api/list/user/{{ name }}/5de1f317617f60434ced31cb', {}))
+            .set('Content-Type', 'application/json')
+            .expect(200)
+            .end((err, res) => {
+                console.info(res.body);
+                done();
+            });
+    });
+
+    it('用户更新{{alias}}', (done) => {
+        request(domain)
+            .put(url('/api/user/{{ name }}/5de1f317617f60434ced31cb', {}))
+            .set('Content-Type', 'application/json')
+            .send({
+                _id: '5e0b053da2f9ca237e5a3cae',
+                tag: 'aaaaa'
+            })
+            .expect(200)
+            .end((err, res) => {
+                console.info(res.body);
+                done();
+            });
+    });
+
+    it('用户删除{{alias}}', (done) => {
+        request(domain)
+            .delete(url('/api/user/{{ name }}/5de1f317617f60434ced31cb', {_id: '5e0b053da2f9ca237e5a3cae'}))
+            .set('Content-Type', 'application/json')
+            .expect(200)
+            .end((err, res) => {
+                console.info(res.body);
+                done();
+            });
+    });
+});

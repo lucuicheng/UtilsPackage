@@ -14,6 +14,8 @@ target = [
     Data.Target('score', '评分'),
     Data.Target('like', '点赞'),
     Data.Target('pay', '支付'),
+    Data.Target('identity', '认证'),
+    Data.Target('comment', '评论'),
 ]
 for group in target:
     content = Utils.template('BaseFullService', 'web_restful_api_TS_G1').render(name=group.name, alias=group.alias)
@@ -28,5 +30,16 @@ for group in target:
     with open('../dist/' + 'route_' + group.name + '.ts', 'w') as fp:
         fp.write(content)
 
-    # print('export { default as %sService } from \'./data/%sService\';' % (group.name, group.name.capitalize()))
-    print("import { %s, %sExtraDoc } from '@model/%s';" % (group.name.capitalize(), group.name.capitalize(), group.name.capitalize()))
+    #
+
+    content = Utils.template('BaseFullTestCase', 'web_restful_api_TS_G1').render(name=group.name, alias=group.alias)
+    with open('../dist/test/' + group.name.capitalize() + 'ServiceTest' + '.ts', 'w') as fp:
+        fp.write(content)
+
+    content = Utils.template('BasePartTestCase', 'web_restful_api_TS_G1').render(name=group.name, alias=group.alias)
+    with open('../dist/test/' + 'user_' + group.name + 'ServiceTest.ts', 'w') as fp:
+        fp.write(content)
+
+    print('export { default as %sService } from \'./data/%sService\';' % (group.name, group.name.capitalize()))
+    # print("import { %s, %sExtraDoc } from '@model/%s';" % (group.name.capitalize(), group.name.capitalize(), group.name.capitalize()))
+    # print(group.name + 'Service,')

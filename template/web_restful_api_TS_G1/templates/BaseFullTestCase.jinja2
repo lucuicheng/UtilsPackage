@@ -1,0 +1,36 @@
+import 'mocha';
+import request from 'supertest';
+import should from 'should';
+
+const domain = 'http://localhost:3000';
+
+const generateGetParam = (json) => (
+    Object.keys(json).map(function (key) {
+        return encodeURIComponent(key) + '=' + encodeURIComponent(json[key]);
+    }).join('&')
+);
+
+const url = (url, params) => (url + '?' + generateGetParam(params));
+
+describe('{{ name }}-service',  () => {
+    it('{{alias}}列表', (done) => {
+        request(domain)
+            .get(url('/api/list/{{ name }}/', {pageSize: 5, page: 0}))
+            .set('Content-Type', 'application/json')
+            .expect(200)
+            .end((err, res) => {
+                console.info(res.body);
+                done();
+            });
+    });
+    it('{{alias}}详情', (done) => {
+        request(domain)
+            .get('/api/{{ name }}/5e0afa881e01f221b05ada66')
+            .set('Content-Type', 'application/json')
+            .expect(200)
+            .end((err, res) => {
+                console.info(res.body);
+                done();
+            });
+    });
+});
