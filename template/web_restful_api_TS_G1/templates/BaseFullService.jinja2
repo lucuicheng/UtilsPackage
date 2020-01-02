@@ -1,0 +1,14 @@
+/**
+ * 资讯列表
+ */
+unprotectedRouter.get('/api/list/{{ name }}', async (ctx: BaseContext, next) => {
+    const body = await infoService.list(ctx.request.query);
+    ctx.body = {code: 200, body};
+});
+/**
+ * 资讯详情
+ */
+unprotectedRouter.get('/api/info/:id', async (ctx: BaseContext, next) => {
+    const body = await infoService.getSingle(ctx.params.id, ctx.request.body);
+    ctx.body = {code: 200, body};
+});

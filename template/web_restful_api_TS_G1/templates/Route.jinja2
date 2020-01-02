@@ -1,0 +1,45 @@
+/**
+ * 资讯列表
+ */
+unprotectedRouter.get('/api/list/{{ name }}', async (ctx: BaseContext, next) => {
+    const body = await {{ name }}Service.list(ctx.request.query);
+    ctx.body = {code: 200, body};
+});
+/**
+ * 资讯详情
+ */
+unprotectedRouter.get('/api/{ name }}/:id', async (ctx: BaseContext, next) => {
+    const body = await {{ name }}Service.getSingle(ctx.params.id, ctx.request.body);
+    ctx.body = {code: 200, body};
+});
+
+/*----用户评论 start----*/
+/**
+ * 用户评论
+ */
+unprotectedRouter.post('/api/user/{{ name }}', async (ctx: BaseContext, next) => {
+    const body = await userService.commentSingle(ctx.request.body);
+    ctx.body = {code: 200, body};
+});
+/**
+ * 查询用户评论
+ */
+unprotectedRouter.get('/api/list/user/{{ name }}/:uid', async (ctx: BaseContext, next) => {
+    const body = await userService.commentHistory(ctx.params.uid, ctx.request.query);
+    ctx.body = {code: 200, body};
+});
+/**
+ * 更新用户评论
+ */
+unprotectedRouter.put('/api/user/{{ name }}/:uid', async (ctx: BaseContext, next) => {
+    const body = await userService.updateSingleCommentRecord(ctx.params.uid, ctx.request.body);
+    ctx.body = {code: 200, body};
+});
+/**
+ * 删除用户评论
+ */
+unprotectedRouter.delete('/api/user/{{ name }}/:uid', async (ctx: BaseContext, next) => {
+    const body = await userService.deleteSingleCommentRecord(ctx.params.uid, ctx.request.query);
+    ctx.body = {code: 200, body};
+});
+/*----用户评论 end----*/
