@@ -1,14 +1,53 @@
-/**
- * 资讯列表
- */
-unprotectedRouter.get('/api/list/{{ name }}', async (ctx: BaseContext, next) => {
-    const body = await infoService.list(ctx.request.query);
-    ctx.body = {code: 200, body};
-});
-/**
- * 资讯详情
- */
-unprotectedRouter.get('/api/info/:id', async (ctx: BaseContext, next) => {
-    const body = await infoService.getSingle(ctx.params.id, ctx.request.body);
-    ctx.body = {code: 200, body};
-});
+'use strict';
+
+import { {{name|title}}, {{name|title}}ExtraDoc } from '@model/{{name|title}}';
+
+const handleError = (err, reject) => {
+    // TODO
+    reject({msg: err});
+};
+
+export default class {{name|title}}Service {
+
+    /**
+     * 查询{{alias}}
+     *
+     * @param query
+     */
+    static list(search: any | null) {
+        return new Promise((resolve, reject) => {
+            const {pageSize = 5, status, page, ...param} = search;
+            {{name|title}}
+                .find({...param, status: {$ne: -1}})
+                .limit(parseInt(pageSize > 0 ? pageSize : 5))
+                .skip(parseInt(page > 0 ? page : 0))
+                .then((docs: [{{name|title}}ExtraDoc]) => {
+                    resolve(docs);
+                })
+                .catch((err) => {
+                    handleError(err, reject);
+                });
+        });
+    }
+
+    /**
+     * {{alias}}详情, 单条
+     *
+     * @param query
+     */
+    static getSingle(id, body: any | null) {
+        return new Promise((resolve, reject) => {
+            const {...param} = body;
+            {{name|title}}
+                .findById(id)
+                .populate({path: 'author'})// {path: 'author', select: 'name'}
+                .then((doc: {{name|title}}ExtraDoc) => {
+                    resolve(doc);
+                })
+                .catch((err) => {
+                    handleError(err, reject);
+                });
+        });
+    }
+
+}

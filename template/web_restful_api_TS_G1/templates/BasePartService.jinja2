@@ -1,14 +1,76 @@
 /**
- * 资讯列表
+ * 用户添加{{alias}}
+ * @param query
  */
-unprotectedRouter.get('/api/list/{{ name }}', async (ctx: BaseContext, next) => {
-    const body = await infoService.list(ctx.request.query);
-    ctx.body = {code: 200, body};
-});
+static {{name}}Single(body: any | null) {
+    return new Promise((resolve, reject) => {
+        const {createTime, ...param} = body;
+        {{name|title}}
+            .create({...param, createTime: new Date()})
+            .then((doc: {{name|title}}ExtraDoc) => {
+                resolve(doc);
+            })
+            .catch((err) => {
+                handleError(err, reject);
+            });
+    });
+}
+
 /**
- * 资讯详情
+ * 用户查询{{alias}}
+ * @param query
  */
-unprotectedRouter.get('/api/info/:id', async (ctx: BaseContext, next) => {
-    const body = await infoService.getSingle(ctx.params.id, ctx.request.body);
-    ctx.body = {code: 200, body};
-});
+static {{name}}History(uid, body: any | null) {
+    return new Promise((resolve, reject) => {
+        const {pageSize = 5, page, status, ...param} = body;
+        {{name|title}}
+            .find({author: uid, status: {$ne: -1}, ...param})
+            .limit(parseInt(pageSize > 0 ? pageSize : 5))
+            .skip(parseInt(page > 0 ? page : 0))
+            .then((doc: {{name|title}}ExtraDoc) => {
+                resolve(doc);
+            })
+            .catch((err) => {
+                handleError(err, reject);
+            });
+    });
+}
+
+/**
+ * 用户更新{{alias}}
+ * @param query
+ */
+static updateSingle{{name|title}}Record(uid, body: any | null) {
+    return new Promise((resolve, reject) => {
+        const {_id, author, updateTime, ...param} = body;
+        {{name|title}}
+            .findByIdAndUpdate(_id, {...param, updateTime: new Date()}, {new: true})
+            .then((doc: {{name|title}}ExtraDoc) => {
+                if (uid != doc.author) new Error('auth');
+                resolve(doc);
+            })
+            .catch((err) => {
+                handleError(err, reject);
+            });
+    });
+}
+
+/**
+ * 用户删除{{alias}}
+ * @param query
+ */
+static deleteSingle{{name|title}}Record(uid, body: any | null) {
+    return new Promise((resolve, reject) => {
+        const {_id, author, updateTime, ...param} = body;
+        console.log(_id);
+        {{name|title}}
+            .findByIdAndUpdate(_id, {status: -1, updateTime: new Date()}, {new: true})
+            .then((doc: {{name|title}}ExtraDoc) => {
+                if (uid != doc.author) new Error('auth');
+                resolve(doc);
+            })
+            .catch((err) => {
+                handleError(err, reject);
+            });
+    });
+}
