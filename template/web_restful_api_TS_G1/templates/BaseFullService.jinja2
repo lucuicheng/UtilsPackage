@@ -16,11 +16,15 @@ export default class {{name|title}}Service {
      */
     static list(search: any | null) {
         return new Promise((resolve, reject) => {
-            const {pageSize = 5, status, page, ...param} = search;
+            const {pageSize = 5, status, page, source = '', ...param} = search;
+            const _pageSize = parseInt(pageSize > 0 ? pageSize : 5), _page = parseInt(page > 0 ? page : 0);
             {{name|title}}
                 .find({...param, status: {$ne: -1}})
-                .limit(parseInt(pageSize > 0 ? pageSize : 5))
-                .skip(parseInt(page > 0 ? page : 0))
+                .limit(_pageSize)
+                .skip(_pageSize * _page)
+                .sort({createTime: -1})
+                .populate({path: 'creator'})
+                .populate({path: 'target', model: source.length > 1 ? source.charAt(0).toUpperCase() + source.slice(1) : ''})
                 .then((docs: [{{name|title}}ExtraDoc]) => {
                     resolve(docs);
                 })
@@ -37,10 +41,11 @@ export default class {{name|title}}Service {
      */
     static getSingle(id, body: any | null) {
         return new Promise((resolve, reject) => {
-            const {...param} = body;
+            const {source = '', ...param} = body;
             {{name|title}}
                 .findById(id)
                 .populate({path: 'creator'})// {path: 'creator', select: 'name'}
+                .populate({path: 'target', model: source.length > 1 ? source.charAt(0).toUpperCase() + source.slice(1) : ''})
                 .then((doc: {{name|title}}ExtraDoc) => {
                     resolve(doc);
                 })
