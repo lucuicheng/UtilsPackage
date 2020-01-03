@@ -1,21 +1,7 @@
-/**
- * {{alias}}列表
- */
-{{ name}}List:('/api/list/{{ name }}'
-/**
- * {{alias}}详情
- */
-{{ name }}Single('/api/{{ name }}/:id'
+{{ name}}List: new Http.URL('/api/list/{{ name }}'),//{{alias}}列表
+{{ name }}Single: new Http.URL('/api/{{ name }}/:id'),//{{alias}}详情
 /*----用户{{alias}} start----*/
-/**
- * 用户创建{{alias}}
- */
-{{ name }}('/api/user/{{ name }}'
-/**
- * 用户查询{{alias}}
- */
-{{ name }}List('/api/list/user/{{ name }}/:uid'
-/**
- * 用户操作{{alias}}
- */
-{{ name }}Single('/api/user/{{ name }}/:uid'
+{{ name }}: new Http.URL('/api/user/{{ name }}'),//用户创建{{alias}}
+{{ name }}List: new Http.URL('/api/list/user/{{ name }}/:uid'), //用户查询{{alias}}
+{{ name }}Single: new Http.URL('/api/user/{{ name }}/:uid'), //用户操作{{alias}}
+ /*----用户{{alias}} end----*/
