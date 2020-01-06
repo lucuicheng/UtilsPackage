@@ -1,45 +1,56 @@
+{% for item in group %}
+/*------------------------------------------------------------------------------------------*/
+
 /**
- * {{alias}}列表
+ * {{item.alias}}计数
  */
-unprotectedRouter.get('/api/list/{{ name }}', async (ctx: BaseContext, next) => {
-    const body = await {{ name }}Service.list(ctx.request.query);
+unprotectedRouter.get('/api/count/{{item.name}}', async (ctx: BaseContext, next) => {
+    const body = await {{item.name}}Service.count(ctx.request.query);
     ctx.body = {code: 200, body};
 });
 /**
- * {{alias}}详情
+ * {{item.alias}}列表
  */
-unprotectedRouter.get('/api/{{ name }}/:id', async (ctx: BaseContext, next) => {
-    const body = await {{ name }}Service.getSingle(ctx.params.id, ctx.request.query);
+unprotectedRouter.get('/api/list/{{item.name}}', async (ctx: BaseContext, next) => {
+    const body = await {{item.name}}Service.list(ctx.request.query);
+    ctx.body = {code: 200, body};
+});
+/**
+ * {{item.alias}}详情
+ */
+unprotectedRouter.get('/api/{{item.name}}/:id', async (ctx: BaseContext, next) => {
+    const body = await {{item.name}}Service.getSingle(ctx.params.id, ctx.request.query);
     ctx.body = {code: 200, body};
 });
 
-/*----用户{{alias}} start----*/
+/*----用户{{item.alias}} start----*/
 /**
- * 用户创建{{alias}}
+ * 用户创建{{item.alias}}
  */
-unprotectedRouter.post('/api/user/{{ name }}', async (ctx: BaseContext, next) => {
-    const body = await userService.{{ name }}Single(ctx.request.body);
+unprotectedRouter.post('/api/user/{{item.name}}', async (ctx: BaseContext, next) => {
+    const body = await userService.{{item.name}}Single(ctx.request.body);
     ctx.body = {code: 200, body};
 });
 /**
- * 用户查询{{alias}}
+ * 用户查询{{item.alias}}
  */
-unprotectedRouter.get('/api/list/user/{{ name }}/:uid', async (ctx: BaseContext, next) => {
-    const body = await userService.{{ name }}History(ctx.params.uid, ctx.request.query);
+unprotectedRouter.get('/api/list/user/{{item.name}}/:uid', async (ctx: BaseContext, next) => {
+    const body = await userService.{{item.name}}History(ctx.params.uid, ctx.request.query);
     ctx.body = {code: 200, body};
 });
 /**
- * 用户更新{{alias}}
+ * 用户更新{{item.alias}}
  */
-unprotectedRouter.put('/api/user/{{ name }}/:uid', async (ctx: BaseContext, next) => {
-    const body = await userService.updateSingle{{ name | title }}Record(ctx.params.uid, ctx.request.body);
+unprotectedRouter.put('/api/user/{{item.name}}/:uid', async (ctx: BaseContext, next) => {
+    const body = await userService.updateSingle{{item.name|title}}Record(ctx.params.uid, ctx.request.body);
     ctx.body = {code: 200, body};
 });
 /**
- * 用户删除{{alias}}
+ * 用户删除{{item.alias}}
  */
-unprotectedRouter.delete('/api/user/{{ name }}/:uid', async (ctx: BaseContext, next) => {
-    const body = await userService.deleteSingle{{ name | title }}Record(ctx.params.uid, ctx.request.query);
+unprotectedRouter.delete('/api/user/{{item.name}}/:uid', async (ctx: BaseContext, next) => {
+    const body = await userService.deleteSingle{{item.name|title}}Record(ctx.params.uid, ctx.request.query);
     ctx.body = {code: 200, body};
 });
-/*----用户{{alias}} end----*/
+/*----用户{{item.alias}} end----*/
+{% endfor %}

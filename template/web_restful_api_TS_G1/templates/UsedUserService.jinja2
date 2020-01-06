@@ -1,0 +1,7 @@
+{% for item in group %}
+/*----用户{{item.alias}} start----*/
+{{item.name}}: new Http.URL('/api/user/{{item.name}}'),//用户创建{{item.alias}}
+{{item.name}}List: new Http.URL('/api/list/user/{{item.name}}/:uid'), //用户查询{{item.alias}}
+{{item.name}}Single: new Http.URL('/api/user/{{item.name}}/:uid'), //用户操作{{item.alias}}
+ /*----用户{{item.alias}} end----*/
+{% endfor %}

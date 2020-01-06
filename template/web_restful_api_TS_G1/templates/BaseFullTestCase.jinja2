@@ -13,7 +13,7 @@ const generateGetParam = (json) => (
 const url = (url, params) => (url + '?' + generateGetParam(params));
 
 describe('{{ name }}-service',  () => {
-    it('评论计数', (done) => {
+    it('{{ name }}计数', (done) => {
         request(domain)
             .get(url('/api/count/{{ name }}/', {source: '', target: ''}))
             .set('Content-Type', 'application/json')

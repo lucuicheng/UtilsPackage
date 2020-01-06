@@ -1,8 +1,9 @@
-describe('user-service-{{ name }}',  () => {
+{% for item in group %}
+describe('user-service-{{item.name}}',  () => {
 
-    it('用户{{alias}}', (done) => {
+    it('用户{{item.alias}}', (done) => {
         request(domain)
-            .post('/api/user/{{ name }}')
+            .post('/api/user/{{item.name}}')
             .set('Content-Type', 'application/json')
             .send({
                 content: 'dsdsdsfsdfjdksf',
@@ -17,9 +18,9 @@ describe('user-service-{{ name }}',  () => {
             });
     });
 
-    it('用户查询{{alias}}', (done) => {
+    it('用户查询{{item.alias}}', (done) => {
         request(domain)
-            .get(url('/api/list/user/{{ name }}/5de1f317617f60434ced31cb', {}))
+            .get(url('/api/list/user/{{item.name}}/5de1f317617f60434ced31cb', {}))
             .set('Content-Type', 'application/json')
             .expect(200)
             .end((err, res) => {
@@ -28,9 +29,9 @@ describe('user-service-{{ name }}',  () => {
             });
     });
 
-    it('用户更新{{alias}}', (done) => {
+    it('用户更新{{item.alias}}', (done) => {
         request(domain)
-            .put(url('/api/user/{{ name }}/5de1f317617f60434ced31cb', {}))
+            .put(url('/api/user/{{item.name}}/5de1f317617f60434ced31cb', {}))
             .set('Content-Type', 'application/json')
             .send({
                 _id: '5e0b053da2f9ca237e5a3cae',
@@ -43,9 +44,9 @@ describe('user-service-{{ name }}',  () => {
             });
     });
 
-    it('用户删除{{alias}}', (done) => {
+    it('用户删除{{item.alias}}', (done) => {
         request(domain)
-            .delete(url('/api/user/{{ name }}/5de1f317617f60434ced31cb', {_id: '5e0b053da2f9ca237e5a3cae'}))
+            .delete(url('/api/user/{{item.name}}/5de1f317617f60434ced31cb', {_id: '5e0b053da2f9ca237e5a3cae'}))
             .set('Content-Type', 'application/json')
             .expect(200)
             .end((err, res) => {
@@ -54,3 +55,4 @@ describe('user-service-{{ name }}',  () => {
             });
     });
 });
+{% endfor %}
