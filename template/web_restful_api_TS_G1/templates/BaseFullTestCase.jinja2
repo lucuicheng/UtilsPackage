@@ -13,6 +13,16 @@ const generateGetParam = (json) => (
 const url = (url, params) => (url + '?' + generateGetParam(params));
 
 describe('{{ name }}-service',  () => {
+    it('评论计数', (done) => {
+        request(domain)
+            .get(url('/api/count/{{ name }}/', {source: '', target: ''}))
+            .set('Content-Type', 'application/json')
+            .expect(200)
+            .end((err, res) => {
+                console.info(res.body);
+                done();
+            });
+    });
     it('{{alias}}列表', (done) => {
         request(domain)
             .get(url('/api/list/{{ name }}/', {pageSize: 5, page: 0}))
