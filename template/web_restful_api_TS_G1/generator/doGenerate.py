@@ -34,18 +34,18 @@ for group in targets:
 content = Utils.template('BasePartService', 'web_restful_api_TS_G1').render(group=targets)
 with open('../dist/UserService.ts', 'w') as fp:
     fp.write(content)
-
-content = Utils.template('route', 'web_restful_api_TS_G1').render(group=targets)
-with open('../dist/Routes.ts', 'w') as fp:
-    fp.write(content)
-
-content = Utils.template('UsedService', 'web_restful_api_TS_G1').render(group=targets)
-with open('../dist/UsedRoutes.ts', 'w') as fp:
-    fp.write(content)
-
-content = Utils.template('UsedUserService', 'web_restful_api_TS_G1').render(group=targets)
-with open('../dist/UsedUserRoutes.ts', 'w') as fp:
-    fp.write(content)
+#
+# content = Utils.template('route', 'web_restful_api_TS_G1').render(group=targets)
+# with open('../dist/Routes.ts', 'w') as fp:
+#     fp.write(content)
+#
+# content = Utils.template('UsedService', 'web_restful_api_TS_G1').render(group=targets)
+# with open('../dist/UsedRoutes.ts', 'w') as fp:
+#     fp.write(content)
+#
+# content = Utils.template('UsedUserService', 'web_restful_api_TS_G1').render(group=targets)
+# with open('../dist/UsedUserRoutes.ts', 'w') as fp:
+#     fp.write(content)
 
 # content = Utils.template('BasePartTestCase', 'web_restful_api_TS_G1').render(group=targets)
 # with open('../dist/test/UserServiceTest.ts', 'w') as fp:

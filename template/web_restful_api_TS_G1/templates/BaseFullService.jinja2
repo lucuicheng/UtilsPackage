@@ -18,7 +18,7 @@ export default class {{name|title}}Service {
         return new Promise((resolve, reject) => {
             const {status, source = '', ...param} = search;
              {{name|title}}
-                .count({...param, status: {$ne: -1}})
+                .count({...param, status: {$ne: -1}, $and: [{status}]})
                 .then((count) => {
                     resolve({count});
                 })
@@ -38,7 +38,7 @@ export default class {{name|title}}Service {
             const {pageSize = 5, status, page, source = '', ...param} = search;
             const _pageSize = parseInt(pageSize > 0 ? pageSize : 5), _page = parseInt(page > 0 ? page : 0);
             {{name|title}}
-                .find({...param, status: {$ne: -1}})
+                .find({...param, status: {$ne: -1}, $and: [{status}]})
                 .limit(_pageSize)
                 .skip(_pageSize * _page)
                 .sort({createTime: -1})
