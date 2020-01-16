@@ -47,9 +47,13 @@ def video_time(filePath):
         return {filePath: '文件损坏 或 不存在'}
 
 
-for type, count in all_type('/Users/cuichenglu/IdeaProjects/').items():
-    print(type, count)
+# for type, count in all_type('/Users/cuichenglu/IdeaProjects/').items():
+#     print(type, count)
 
-for path in all_path('/Users/cuichenglu/Desktop', ['.mov']):
-    data = video_time(path)
-    print('%s => %.2fs => %.2fm' % (path, data.get(path), data.get(path) / 60))
+for path in all_path('/Users/cuichenglu/IdeaProjects', ['.mp4']):
+    try:
+        data = video_time(path)
+        print('%s => %.2fs => %.2fm' % (path, data.get(path), data.get(path) / 60))
+    except TypeError:
+        pass
+    # continue
