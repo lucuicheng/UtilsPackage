@@ -27,7 +27,7 @@ static {{item.name}}Count(uid, body: any | null) {
     return new Promise((resolve, reject) => {
         const {status, ...param} = body;
         {{item.name|title}}
-            .count({creator: uid, ...param, status: {$ne: -1}, $and: [{status}]})
+            .count({creator: new mongoose.Types.ObjectId(uid), ...param, status: {$ne: -1}, $and: [{status}]})
             .then(count => {
                 resolve({count});
             })
@@ -46,7 +46,7 @@ static {{item.name}}History(uid, body: any | null) {
         const {pageSize = 5, page, source, status, ...param} = body;
         const _pageSize = parseInt(pageSize > 0 ? pageSize : 5), _page = parseInt(page > 0 ? page : 0);
         {{item.name|title}}
-            .find({creator: uid, ...param, status: {$ne: -1}, $and: [{status}]})
+            .find({creator: new mongoose.Types.ObjectId(uid), ...param, status: {$ne: -1}, $and: [{status}]})
             .limit(_pageSize)
             .skip(_pageSize * _page)
             .sort({createTime: -1})
