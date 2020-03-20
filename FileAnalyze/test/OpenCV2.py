@@ -3,6 +3,7 @@
 import os
 import cv2
 
+# 提取抽象方法
 
 def all_path(dirname, filtered):  # 设置过滤后的文件类型 当然可以设置多个类型
     result = []  # 所有的文件
