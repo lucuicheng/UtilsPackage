@@ -50,7 +50,7 @@ def video_time(filePath):
 # for type, count in all_type('/Users/cuichenglu/IdeaProjects/').items():
 #     print(type, count)
 
-for path in all_path('/Users/cuichenglu/IdeaProjects', ['.mp4']):
+for path in all_path('/Volumes/iboysoft_ntfs_disk2s1_/Courses/88G小马哥全新JAVA架构师实战课程 九大阶段轻松成就合格JAVA架构师 视频+源码+面试', ['.mp4']):
     try:
         data = video_time(path)
         print('%s => %.2fs => %.2fm' % (path, data.get(path), data.get(path) / 60))
