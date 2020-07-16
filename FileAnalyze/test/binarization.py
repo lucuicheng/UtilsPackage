@@ -14,6 +14,8 @@ def threshold_demo(image):
     img_medianBlur = cv.medianBlur(binary, 3)  # 中值滤波
     cv.namedWindow("binary0", cv.WINDOW_NORMAL)
     cv.imshow("binary0", img_medianBlur)  # 显示中值滤波结果
+    # 保存到本地
+    cv.imwrite('D:/mklop/Pictures/_20200715155942.png', img_medianBlur)
 
 
 # 局部阈值
