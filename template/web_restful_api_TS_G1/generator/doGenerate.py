@@ -1,4 +1,5 @@
-from lib import Utils, Data
+from lib.model import info
+from template.lib import Utils, Data, Model
 
 targets = [
     Data.Target('info', '资讯'),
@@ -17,23 +18,33 @@ targets = [
     Data.Target('identity', '认证'),
     Data.Target('comment', '评论'),
 ]
-for group in targets:
-    # content = Utils.template('BaseFullService', 'web_restful_api_TS_G1').render(name=group.name, alias=group.alias)
-    # with open('../dist/' + group.name.capitalize() + 'Service' + '.ts', 'w') as fp:
-    #     fp.write(content)
-    #
-    # content = Utils.template('BaseFullTestCase', 'web_restful_api_TS_G1').render(name=group.name, alias=group.alias)
-    # with open('../dist/test/' + group.name.capitalize() + 'ServiceTest' + '.ts', 'w') as fp:
-    #     fp.write(content)
-    #
 
-    print('export { default as %sService } from \'./data/%sService\';' % (group.name, group.name.capitalize()))
-    # print("import { %s, %sExtraDoc } from '@model/%s';" % (group.name.capitalize(), group.name.capitalize(), group.name.capitalize()))
-    # print(group.name + 'Service,')
+models = [
+    Model.Target(info.name, info.alias, info.columns),
+]
 
-content = Utils.template('BasePartService', 'web_restful_api_TS_G1').render(group=targets)
-with open('../dist/UserService.ts', 'w') as fp:
-    fp.write(content)
+# for group in targets:
+# content = Utils.template('BaseFullService', 'web_restful_api_TS_G1').render(name=group.name, alias=group.alias)
+# with open('../dist/' + group.name.capitalize() + 'Service' + '.ts', 'w') as fp:
+#     fp.write(content)
+#
+# content = Utils.template('BaseFullTestCase', 'web_restful_api_TS_G1').render(name=group.name, alias=group.alias)
+# with open('../dist/test/' + group.name.capitalize() + 'ServiceTest' + '.ts', 'w') as fp:
+#     fp.write(content)
+#
+
+# print('export { default as %sService } from \'./data/%sService\';' % (group.name, group.name.capitalize()))
+# print("import { %s, %sExtraDoc } from '@model/%s';" % (group.name.capitalize(), group.name.capitalize(), group.name.capitalize()))
+# print(group.name + 'Service,')
+
+for group in models:
+    content = Utils.template('Model', 'web_restful_api_TS_G1').render(name=group.name, columns=group.columns)
+    with open('../dist/' + group.name.capitalize() + '' + '.ts', 'w', encoding='utf-8') as fp:
+        fp.write(content)
+
+# content = Utils.template('BasePartService', 'web_restful_api_TS_G1').render(group=targets)
+# with open('../dist/UserService.ts', 'w') as fp:
+#     fp.write(content)
 #
 # content = Utils.template('route', 'web_restful_api_TS_G1').render(group=targets)
 # with open('../dist/Routes.ts', 'w') as fp:

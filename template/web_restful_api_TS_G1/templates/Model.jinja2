@@ -1,0 +1,36 @@
+import { Schema, Model, model, Document } from 'mongoose';
+
+export interface {{ name }}Document extends Document {
+    {% for item in columns %}
+    {{ item.name }}: {{ item.document }}; // {{ item.alias }}{% endfor %}
+}
+
+export interface {{ name }}ExtraDoc extends {{ name }}Document, Document {
+    setInit(): void;
+
+    getID(): string;
+
+    encryption(): string;
+}
+
+const {{ name }}Schema = new Schema({
+    {% for item in columns %}
+    {{ item.name }}: {type: {{ item.schema }}, require: {{ item.require }}{% if item.default %}, default: {{ item.default }}{% endif %}{% if item.ref %}, ref: {{ item.ref }}{% endif %}{% if item.enum %}, enum: {{ item.enum }}{% endif %}},{% endfor %}
+});
+
+{{ name }}Schema.methods.getID = function () {// 此处只能使用function定义函数， Do not declare methods using ES6 arrow functions (=>).
+//    let greeting = this.name ? "name is " + this.name : "I don't have a name";
+    return {id: this._id};
+};
+
+{{ name }}Schema.methods.setInit = function () {// init 为自带方法，不能定义成 init
+    this.name = 'enr:' + this.name;
+    this.createTime = new Date();
+    return this;
+};
+
+{{ name }}Schema.methods.encryption = function () {
+    return 'enr:' + this.password;
+};
+
+export const {{ name }}: Model<{{ name }}ExtraDoc> = model('{{ name }}', {{ name }}Schema);
